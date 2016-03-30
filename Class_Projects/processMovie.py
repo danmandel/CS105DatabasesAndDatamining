@@ -4,7 +4,6 @@
 infile = open('movie.txt', 'r')
 outfile =  open('movie_processed.txt','w')
 
-
 count = 0
 for line in infile:
     if count == 0:
@@ -16,7 +15,6 @@ for line in infile:
 if count == 0:
     print ("Infile does not contain anything.")
 
-    
 infile.close()
 outfile.close()
 print ("Done.")
