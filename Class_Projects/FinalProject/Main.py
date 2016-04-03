@@ -16,7 +16,7 @@ with open(infile) as csvfile:
             Missing_Fields = []
             
             for field in row:
-                print (row.index(field))
+                #print (row.index(field))
                 if (field != ''):
                     nonblank_fields += 1
 
@@ -24,3 +24,4 @@ with open(infile) as csvfile:
             row_counter +=1
         else:
             break
+
