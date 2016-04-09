@@ -1,27 +1,25 @@
-#infile = open('train.csv', 'r')
-infile = "train.csv"
-outfile = open('train_processed.csv','w')
-
 import csv
 
-with open(infile) as csvfile:
-    readCSV = csv.reader(csvfile, delimiter=',') # Better because \n was messing things up I think.
-    row_counter = 0
-    for row in readCSV:
-        nonblank_fields = 0
-        if row_counter < 10: #eventually can remove this and indent everything under it 1 tab to the left.
-            
-            ID = row[0]
-            Target = row[1]
-            Missing_Fields = []
-            
-            for field in row:
-                #print (row.index(field))
-                if (field != ''):
-                    nonblank_fields += 1
+infile = open("train.csv",'r')
+outfile = open("train_processed.csv",'w')
 
-            print ("There are {} filled in fields for ID {} \n".format(nonblank_fields,ID))    
-            row_counter +=1
-        else:
-            break
+column_names = "A_follower_count,A_following_count,A_listed_count,A_mentions_received,A_retweets_received,A_mentions_sent,A_retweets_sent,A_posts,A_network_feature_1,A_network_feature_2,A_network_feature_3,B_follower_count,B_following_count,B_listed_count,B_mentions_received,B_retweets_received,B_mentions_sent,B_retweets_sent,B_posts,B_network_feature_1,B_network_feature_2,B_network_feature_3,Choice"
 
+count = 0
+dataset = csv.reader(infile,delimiter=',')
+for line in dataset:
+    if count == 0:
+        print (column_names,file=outfile)
+    if count > 0:
+        classification = int(line[-1])
+        if classification == 1:
+            line[-1] = "A"
+        if classification == 0:
+            line[-1] = "B"
+        result = ",".join(line)
+        print (result, file=outfile)
+    
+    count += 1
+    
+infile.close()
+outfile.close()
